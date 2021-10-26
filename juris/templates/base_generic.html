@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>Local Library</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% load static %}
+  <script src="{% static 'js/jquery.js' %}"></script>
+</head>
+<body>
+
+      
+
+      {% block content %}
+      {% endblock %}
+
+
+</body>
+<script src="{% static 'js/js.js' %}"></script>
+
+</html>

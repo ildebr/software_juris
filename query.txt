@@ -1,0 +1,1 @@
+PersonasIntervenientes.objects.get(persona__user__username='user1')

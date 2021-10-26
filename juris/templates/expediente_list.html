@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+{% block content %}
+
+expediente list
+
+{% if user.is_authenticated %}
+      <h3>Hola {{ user.get_username }}</h3>
+{% endif %}
+{% for inter in personas %}
+    <p>
+    <!-- {{ inter.rol }}
+    {{ inter.expediente }}
+    {{ inter.expediente.id }} -->
+    {{ inter.expediente }}
+    <a href="{{ inter.expediente.get_absolute_url }}">link</a>
+</p>
+{% endfor %}
+{% endblock %}
