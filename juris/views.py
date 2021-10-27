@@ -22,23 +22,5 @@ class ExpedienteListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return PersonasIntervenientes.objects.filter(persona__user__username=self.request.user)
 
-#vista detalle de expediente
-class ExpedienteDetailView(LoginRequiredMixin, generic.DetailView):
-    model = Actualizacion
-
-    context_object_name="object"
-    template_name="actualizacion_detail.html"
-
-    # def get_queryset(self):
-        # pp = Actualizacion.objects.filter(expediente=self.kwargs['pk'])
-
-        # return Actualizacion.objects.filter(expediente=pp.expediente)
-    def get_queryset(self):
-        return Actualizacion.objects.filter(expediente__numero_de_fiscalia='FP12')
-    
-
 class ActualizacionListView(LoginRequiredMixin, generic.ListView):
     model = Actualizacion
-
-    def get_queryset(self):
-        return Actualizacion.objects.filter(expediente=1)
