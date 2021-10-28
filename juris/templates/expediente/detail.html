@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %} {% block content %}
+
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title"><strong>{{ expediente }}</strong></h4>
+    <small class="card-subtitle text-muted">Expediente</small>
+  </div>
+  <div class="card-body">
+    <h5>Participantes</h5>
+
+    {% for help in expediente.return_list_of_intervenientes %}
+    <p class="card-text">
+      <strong>{{ help.get_rol_display }}</strong> {{ help.user }}
+    </p>
+    {% endfor %}
+
+    <h5>Actualizaciones:</h5>
+
+    <h3>{{ expediente.titulo }} | {{ expediente.fecha_actualizacion }}</h3>
+    <p>{{ expediente.contenido}}</p>
+  </div>
+</div>
+
+<h4></h4>
+
+{% endblock %}

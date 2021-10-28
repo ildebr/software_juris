@@ -1,22 +1,23 @@
-{% extends "base_generic.html" %} 
+{% extends "base_generic.html" %}
+
 {% block content %}
 
 <h4>Listado de expedientes</h4>
 
 <div class="list-group">
-  {% for inter in personas %} {% with inter.expediente as expediente %}
+  {% for expediente in expedientes %}
   <a
-    href="{% url 'expediente-detail' expediente.id %}"
+    href="{% url 'expediente-detail' expediente.pk %}"
     class="list-group-item list-group-item-action d-flex gap-3 py-3"
-    aria-current="true"
   >
     <div class="d-flex gap-2 w-100 justify-content-between">
       <div>
-        <h6 class="mb-0">{{expediente }}</h6>
+        <h6 class="mb-0">{{ expediente }}</h6>
       </div>
       <small class="opacity-50 text-nowrap">{{ expediente.año|date }}</small>
     </div>
   </a>
-  {% endwith %} {% endfor %}
+  {% endfor %}
 </div>
+
 {% endblock %}
