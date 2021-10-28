@@ -14,6 +14,8 @@ class Actualizacion(models.Model):
 	fecha_actualizacion = models.DateField(auto_now=True)
 	expediente = models.ForeignKey('Expediente', on_delete=models.SET_NULL, null = True)
 
+	def get_rol(self):
+		return str(self.expediente.intervenientes.rol)
 	def get_absolute_url(self):
 		"""Devuelve el url para acceder cada actualizacion"""
 		return reverse('actualizacion-detail-view', args=[str(self.id)])
@@ -32,15 +34,24 @@ class Expediente(models.Model):
 	numero_expediente = models.CharField(max_length=6)
 	intervenientes = models.ManyToManyField(User, through='PersonasIntervenientes')
 
-	def get_absolute_url(self):
-		return reverse('expediente-detail', args=[str(self.id)])
+	# def get_absolute_url(self):
+	# 	return reverse('expediente-detail', args=[str(self.id)])
 
 	# Los campos especificados en unique_together son para que no hayan dos expedientes iguales
 	class Meta:
 		unique_together= ('numero_de_fiscalia', 'letra', 'tribunal', 'numero_expediente')
 
+	def get_year(self):
+		return str(self.año.year)
+
+	def return_list_of_intervenientes(self):
+		return  self.intervenientes.through.objects.filter(expediente=self)
+
+	def return_list(self):
+		return '_'.join([str(inter.rol) for inter in self.intervenientes.all()])
+
 	def __str__(self):
-		return "pk" + " " + str(self.id) + " " + self.numero_de_fiscalia + "-" + self.letra + "-" + str(self.año.year) + "-" + self.tribunal + "-" + self.numero_expediente
+		return self.numero_de_fiscalia + "-" + self.letra + "-" + str(self.año.year) + "-" + self.tribunal + "-" + self.numero_expediente
 
 
 
@@ -77,6 +88,6 @@ class PersonasIntervenientes(models.Model):
 		unique_together = ('user', 'rol', 'expediente')
 
 	def __str__(self):
-		return self.expediente.numero_de_fiscalia + " " + self.rol + self.user.username
+		return self.rol + " " + self.user.username
 
 

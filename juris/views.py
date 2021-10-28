@@ -20,7 +20,18 @@ class ExpedienteListView(LoginRequiredMixin, generic.ListView):
 
     #filtro para recibir los expedientes en los que participa el usuario
     def get_queryset(self):
-        return PersonasIntervenientes.objects.filter(persona__user__username=self.request.user)
+        return PersonasIntervenientes.objects.filter(user__username=self.request.user)
 
-class ActualizacionListView(LoginRequiredMixin, generic.ListView):
+class ExpedienteDetailView(LoginRequiredMixin, generic.ListView):
     model = Actualizacion
+    context_object_name= 'expediente'
+    template_name = "expediente_detail.html"
+
+    #filtro para recibir los detalles del expediente y actualizaciones
+
+    def get_queryset(self):
+        return Actualizacion.objects.filter(expediente=self.kwargs['expediente'])
+
+class ActualizacionDetailView(LoginRequiredMixin, generic.ListView):
+    model = Actualizacion
+    context_object_name=''

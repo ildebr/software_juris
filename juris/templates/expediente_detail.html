@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+{% block content %}
+
+expediente detail
+
+{% if user.is_authenticated %}
+      <h3>Hola {{ user.get_username }}</h3>
+{% endif %}
+
+
+
+{% for exp in expediente %}
+    {% if forloop.first %}
+    <h1>Expediente: {{ exp.expediente }}s</h1>
+
+    <h2>Participantes</h2>
+
+    {% for help in exp.expediente.return_list_of_intervenientes %}
+    <p> <strong>{{ help.get_rol_display }}</strong> {{ help.user }}  </p>
+    {% endfor %}
+
+    <h2>Actualizaciones:</h2>
+
+    
+
+
+
+    {% endif %}
+    <h3>{{ exp.titulo }} | {{ exp.fecha_actualizacion }} </h3>
+    <p>{{ exp.contenido}} </p>
+{% endfor %}
+
+{% endblock %}
