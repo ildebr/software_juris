@@ -34,8 +34,8 @@ class Expediente(models.Model):
 	numero_expediente = models.CharField(max_length=6)
 	intervenientes = models.ManyToManyField(User, through='PersonasIntervenientes')
 
-	# def get_absolute_url(self):
-	# 	return reverse('expediente-detail', args=[str(self.id)])
+	def get_absolute_url(self):
+		return reverse('expediente-detail', args=[str(self.id)])
 
 	# Los campos especificados en unique_together son para que no hayan dos expedientes iguales
 	class Meta:
@@ -51,7 +51,7 @@ class Expediente(models.Model):
 		return '_'.join([str(inter.rol) for inter in self.intervenientes.all()])
 
 	def __str__(self):
-		return self.numero_de_fiscalia + "-" + self.letra + "-" + str(self.año.year) + "-" + self.tribunal + "-" + self.numero_expediente
+		return str(self.id) + " " + self.numero_de_fiscalia + "-" + self.letra + "-" + str(self.año.year) + "-" + self.tribunal + "-" + self.numero_expediente
 
 
 
