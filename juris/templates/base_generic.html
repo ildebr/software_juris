@@ -1,24 +1,103 @@
+{% load active_link_class %}
+
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
-  {% block title %}<title>Local Library</title>{% endblock %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Add additional CSS in static file -->
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  {% load static %}
-  <script src="{% static 'js/jquery.js' %}"></script>
-</head>
-<body>
+  <head>
+    {% block title %}
+    <title>Local Library</title>
+    {% endblock %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Add additional CSS in static file -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'juris/css/style.css' %}" />
+    <script src="{% static 'js/jquery.js' %}"></script>
 
-      
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header class="p-3 bg-dark text-white py-3 mb-3 border-bottom">
+      <div class="container">
+        <div
+          class="
+            d-flex
+            flex-wrap
+            align-items-center
+            justify-content-center justify-content-lg-start
+          "
+        >
+          <a
+            href="{% url 'index' %}"
+            class="
+              h4
+              d-flex
+              align-items-center
+              mb-2 mb-lg-0
+              text-white text-decoration-none
+            "
+            >Sistema Juris
+          </a>
 
-      {% block content %}
-      {% endblock %}
+          {% if user.is_authenticated %}
+          <ul
+            class="
+              nav
+              col-12 col-lg-auto
+              me-lg-auto
+              mb-2
+              justify-content-center
+              mb-md-0
+            "
+          >
+            <li class="nav-item">
+              <a
+                href="{% url 'expedientes' %}"
+                class="
+                  nav-link
+                  px-2
+                  {% active_link_class 'expedientes' active_class='text-secondary' inactive_class='text-white' %}
+                "
+                >Expedientes</a
+              >
+            </li>
+          </ul>
+          {% endif %}
 
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <input
+              type="search"
+              class="form-control form-control-dark"
+              placeholder="Search..."
+              aria-label="Search"
+            />
+          </form>
 
-</body>
-<script src="{% static 'js/js.js' %}"></script>
-
+          <div class="text-end">
+            {% if user.is_authenticated %}
+            <div class="nav-item">Hola {{ user.get_username }}</div>
+            {% else %}
+            <button type="button" class="btn btn-outline-light me-2">
+              Login
+            </button>
+            <button type="button" class="btn btn-warning">Sign-up</button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="container" style="">{% block content %} {% endblock %}</div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'js/js.js' %}"></script>
+  </body>
 </html>

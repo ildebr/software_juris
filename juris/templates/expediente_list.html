@@ -1,18 +1,22 @@
-{% extends "base_generic.html" %}
+{% extends "base_generic.html" %} 
 {% block content %}
 
-expediente list
+<h4>Listado de expedientes</h4>
 
-{% if user.is_authenticated %}
-      <h3>Hola {{ user.get_username }}</h3>
-{% endif %}
-{% for inter in personas %}
-    <p>
-    <!-- {{ inter.rol }}
-    {{ inter.expediente }}
-    {{ inter.expediente.id }} -->
-    {{ inter.expediente }}
-    <a href="{{ inter.expediente.get_absolute_url }}">link</a>
-</p>
-{% endfor %}
+<div class="list-group">
+  {% for inter in personas %} {% with inter.expediente as expediente %}
+  <a
+    href="{% url 'expediente-detail' expediente.id %}"
+    class="list-group-item list-group-item-action d-flex gap-3 py-3"
+    aria-current="true"
+  >
+    <div class="d-flex gap-2 w-100 justify-content-between">
+      <div>
+        <h6 class="mb-0">{{expediente }}</h6>
+      </div>
+      <small class="opacity-50 text-nowrap">{{ expediente.año|date }}</small>
+    </div>
+  </a>
+  {% endwith %} {% endfor %}
+</div>
 {% endblock %}
