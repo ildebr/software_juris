@@ -4,5 +4,5 @@ from juris import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('expedientes/', include('juris.urls.expediente')),
+    path('expedientes/', include('juris.urls.legal_record')),
 ]

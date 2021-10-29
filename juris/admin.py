@@ -1,29 +1,35 @@
-from django.contrib import admin
-from django.contrib.auth.models import User
-from .models import Expediente, PersonasIntervenientes, Actualizacion
-# Register your models here.
+from django.contrib.admin import ModelAdmin, TabularInline, register
+
+from juris.models import LegalRecord, Part, Person, Proceeding
 
 
-# admin.site.register(Expediente)
-# admin.site.register(PersonasIntervenientes)
-# admin.site.register(Actualizacion)
+class ProceedingInline(TabularInline):
+    model = Proceeding
 
-class ActualizacionInline(admin.TabularInline):
-    model = Actualizacion
-    extra = 0
 
-class PersonasIntervenientesInline(admin.TabularInline):
-    model = PersonasIntervenientes
-    extra = 0
+class PartInline(TabularInline):
+    model = Part
 
-@admin.register(Expediente)
-class ExpedienteAdmin(admin.ModelAdmin):
-    inlines = [ActualizacionInline, PersonasIntervenientesInline]
 
-@admin.register(PersonasIntervenientes)
-class PersonasIntervenientesAdmin(admin.ModelAdmin):
+class PersonInline(TabularInline):
+    model = Person
+
+
+@register(LegalRecord)
+class LegalRecordAdmin(ModelAdmin):
+    inlines = (ProceedingInline, PartInline)
+
+
+@register(Part)
+class PartAdmin(ModelAdmin):
     pass
 
-@admin.register(Actualizacion)
-class ActualizacionAdmin(admin.ModelAdmin):
+@register(Proceeding)
+class ProceedingAdmin(ModelAdmin):
+    pass
+
+
+@register(Person)
+class PersonAdmin(ModelAdmin):
+    inlines = (PartInline,)
     pass
