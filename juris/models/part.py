@@ -11,6 +11,6 @@ class Part(Model):
     type = CharField("Tipo", max_length=3, choices=Type.choices)
 
     class Meta:
-        unique_together = ("person", "type", "legal_record")
+        unique_together = ("person", "legal_record")
         verbose_name = "Parte"
         verbose_name_plural = "Partes"

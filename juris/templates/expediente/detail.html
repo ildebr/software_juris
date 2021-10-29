@@ -6,18 +6,57 @@
     <small class="card-subtitle text-muted">Expediente</small>
   </div>
   <div class="card-body">
-    <h5>Participantes</h5>
-
-    {% for help in expediente.return_list_of_intervenientes %}
-    <p class="card-text">
-      <strong>{{ help.get_rol_display }}</strong> {{ help.user }}
-    </p>
-    {% endfor %}
-
-    <h5>Actualizaciones:</h5>
-
-    <h3>{{ expediente.titulo }} | {{ expediente.fecha_actualizacion }}</h3>
-    <p>{{ expediente.contenido}}</p>
+    <div class="p-2">
+      <h5>Partes</h5>
+      {% if parts %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Parte</th>
+              <th scope="col">Tipo de persona</th>
+              <th scope="col">Nombre</th>
+            </tr>
+            <tbody>
+              {% for person, part_type in parts %}
+                <tr>
+                <td>{{ part_type  }}</td>
+                <td >{{ person.get_type_display }}</td>
+                <td>{{ person.get_full_name }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </thead>
+        </table>
+      {% else %}
+      <p class="text-muted">No hay partes registradas para éste expediente</p>
+      {% endif %}
+    </div>
+    <div class="p-2">
+        <h5>Actuaciones Judiciales</h5>
+      {% if proceedings %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Fecha de ingreso</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Resumen</th>
+            </tr>
+            <tbody>
+              {% for proceeding in proceedings %}
+                <tr>
+                <td>{{ proceeding.date  }}</td>
+                <td >{{ proceeding.type }}</td>
+                <td>{{ proceeding.summary }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </thead>
+        </table>
+      {% else %}
+      <p class="text-muted">No hay actuaciones registradas para éste expediente</p>
+      {% endif %}
+    </div>
+  
   </div>
 </div>
 

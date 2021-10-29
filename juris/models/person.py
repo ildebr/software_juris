@@ -7,11 +7,13 @@ class Person(Model):
         LEGAL = "LE", "Legal"
         NATURAL = "NA", "Natural"
 
-    name = CharField(max_length=50)
-    last_name = CharField(max_length=50)
+    name = CharField("nombre", max_length=50)
+    last_name = CharField("apellido", max_length=50)
     email = EmailField()
-    identity_number = CharField(primary_key=True, max_length=15)
-    type = CharField(max_length=2, choices=Type.choices, default=Type.NATURAL)
+    identity_number = CharField("cédula de identidad", primary_key=True, max_length=15)
+    type = CharField(
+        "tipo de persona", max_length=2, choices=Type.choices, default=Type.NATURAL
+    )
 
     def get_absolute_url(self):
         return reverse("person_detail", kwargs={"pk": self.pk})
@@ -19,3 +21,6 @@ class Person(Model):
     class Meta:
         verbose_name = "persona"
         verbose_name_plural = "personas"
+
+    def get_full_name(self):
+        return f"{self.name} {self.last_name}"
