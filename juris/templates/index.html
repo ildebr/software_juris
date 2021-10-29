@@ -1,6 +1,42 @@
 {% extends "base_generic.html" %}
 {% block content %}
 
+<div class="container row">
+    <h2>Realiza una busqueda</h2>
 
-{{ request.GET }}
+    <div class="busqueda container justify-content-center col-sm-6">
+        <form action="{% url 'index' %}" method="POST" >
+            {% csrf_token %}
+            <input type="text" name="numero_de_fiscalia" placeholder="fiscalia" required >
+            <input type="text" name="letra" placeholder="Competencia" required >
+            <input type="text" name="año" placeholder="año" >
+            <input type="text" name="tribunal" placeholder="tribunal" required  >
+            <input type="text" name="numero_expediente" placeholder="numero de expediente" required >
+            <input type="submit" value="buscar" class="button btn-warning">
+        </form>
+        
+        
+    
+    </div>
+    
+    
+    <div class="resultados container justify-content-center col-md-6">
+
+        {% if resultado %}
+        
+
+        <h2>Expediente: </h2>
+        <h3 class="exp">{{ resultado }}</h3>
+
+        <h2>Actuaciones judiciales</h2>
+        {% for act in resultado.proceeding_set.all %}
+            <div>
+                <h4 style="text-transform: capitalize;">{{act.type}}</h4>
+                <p>{{act.summary}}</p>
+            </div>
+        {% endfor %}
+        {% endif %}
+    
+    </div>
+</div>
 {% endblock %}
