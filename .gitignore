@@ -4,6 +4,7 @@
 *.pyc
 __pycache__
 media
-
+/static
 
 .vscode
+.env

@@ -35,7 +35,7 @@ class LegalRecord(Model):
     prosecutor_number = CharField("número de fiscalía", max_length=5)
     court_number = CharField("número del tribunal", max_length=2)
     record_number = CharField("número de expediente", max_length=6)
-    letter = CharField("letra", max_length=1)
+    letter = CharField("competencia", max_length=1)
     termination_reason = CharField("motivo de conclusión", max_length=100, blank=True)
     summary = CharField("resumen del caso", max_length=100, blank=True)
 
